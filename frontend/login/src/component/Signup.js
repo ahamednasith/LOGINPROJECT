@@ -6,19 +6,15 @@ import axios from 'axios';
 
 
 function Signup() {
-    const [values,setValues] = useState({
-        phoneNumber:''
-    })
+    const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
     const [errors,setErrors] = useState({})
-    const handleInput = (e) =>{
-        setValues(prev =>({...prev,[e.target.name]:[e.target.values]}))
-    }
+
     const handleSubmit=(e) => {
         e.preventDefault();
-        setErrors(Validation(values));
+        setErrors(Validation(phoneNumber));
         if(errors.phoneNumber === ""){
-            axios.post('http://localhost:6733/signup',values)
+            axios.post('http://localhost:6733/signup',{phoneNumber:phoneNumber})
             .then(res =>{
                 navigate('/login');
             })
@@ -32,7 +28,7 @@ function Signup() {
                     <div className='form-group mb-3'>
                         <label htmlFor="phoneNumber"><strong>Phone Number:</strong></label>
                         <input type='text'  name="phoneNumber" placeholder='Enter Phone Number' 
-                        onChange={handleInput} className='form-control rounded'/>
+                        onChange={(e)=>{setPhoneNumber(e.target.value)}} className='form-control rounded'/>
                         <br></br>
                         {errors.phoneNumber && <span className='text-danger'>{errors.phoneNumber}</span>}
                     </div><br></br>
