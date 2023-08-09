@@ -20,12 +20,7 @@ function Login(){
         if(errors.phoneNumber === "" && errors.otp === ""){
             axios.post('http://localhost:6733/verify',values)
             .then(res =>{
-                if(res.data==="OTP Has Verified"){
                     navigate('/home')
-                }
-                else{
-                    alert("OTP Has Expired")
-                }
             })
             .catch(err=>console.log(err));
         }
